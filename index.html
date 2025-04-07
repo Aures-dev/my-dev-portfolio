@@ -416,12 +416,12 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div class="relative">
                 <div class="floating">
-                    <div class="relative w-full h-80 bg-slate-800 rounded-xl overflow-hidden shadow-2xl">
-                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                    <div class="relative w-full h-full bg-slate-800 rounded-xl overflow-hidden shadow-2xl">
+                        <img src="./public/images/aures-about.png"
                             alt="Code" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 p-6">
-                            <h3 class="text-xl font-bold text-white">5+ années d'expérience</h3>
+                            <h3 class="text-xl font-bold">5+ années d'expérience</h3>
                             <p class="text-slate-300">Dans le développement web</p>
                         </div>
                     </div>
@@ -472,7 +472,7 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="section py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-slate-800/50 rounded-3xl my-12">
+    <section id="skills" class="section py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-slate-800/20 rounded-3xl my-12">
         <div class="text-center mb-16">
             <h2 class="text-3xl md:text-4xl font-bold mb-4">
                 Mes <span class="gradient-text">compétences</span>
@@ -1005,7 +1005,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="py-12 px-4 sm:px-6 lg:px-8 bg-slate-900/50">
+    <footer class="py-12 px-4 sm:px-6 lg:px-8 bg-slate-900/10">
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-6 md:mb-0">
@@ -1247,7 +1247,7 @@
         // Flip card functionality
         document.querySelectorAll('.project-card').forEach(card => {
             const frontButton = card.querySelector('.project-front ');
-            const backButton = card.querySelector('.project-back ');
+            const backButton = card.querySelector('.project-back button');
 
             frontButton.addEventListener('click', () => {
                 card.classList.add('flipped');
