@@ -259,6 +259,15 @@
                 animation: scroll 20s linear infinite;
             }
         }
+
+nav.scrolled-up {
+  transform: translateY(0);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+nav.scrolled-down {
+  transform: translateY(-100%);
+}
     </style>
 </head>
 
@@ -1212,6 +1221,30 @@
         }, { threshold: 0.5 });
 
         heroObserver.observe(document.getElementById('home'));
+
+        // Ajouter ceci à ton script existant
+let lastScroll = 0;
+const navbar = document.querySelector('nav');
+
+window.addEventListener('scroll', () => {
+  const currentScroll = window.pageYOffset;
+  
+  if (currentScroll <= 0) {
+    navbar.classList.remove('scrolled-up');
+    navbar.classList.remove('scrolled-down');
+    return;
+  }
+  
+  if (currentScroll > lastScroll && !navbar.classList.contains('scrolled-down')) {
+    navbar.classList.remove('scrolled-up');
+    navbar.classList.add('scrolled-down');
+  } else if (currentScroll < lastScroll && navbar.classList.contains('scrolled-down')) {
+    navbar.classList.remove('scrolled-down');
+    navbar.classList.add('scrolled-up');
+  }
+  
+  lastScroll = currentScroll;
+});
     </script>
 </body>
 
