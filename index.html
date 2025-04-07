@@ -194,6 +194,17 @@
         .project-card {
             perspective: 1000px;
             height: 320px;
+            transform-style: preserve-3d;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 25px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-card:hover .project-front {
+            box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.1);
         }
 
         .project-inner {
@@ -260,14 +271,14 @@
             }
         }
 
-nav.scrolled-up {
-  transform: translateY(0);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-}
+        nav.scrolled-up {
+            transform: translateY(0);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
 
-nav.scrolled-down {
-  transform: translateY(-100%);
-}
+        nav.scrolled-down {
+            transform: translateY(-100%);
+        }
     </style>
 </head>
 
@@ -1096,28 +1107,59 @@ nav.scrolled-down {
         // Custom cursor effect
         const cursor = document.querySelector('.cursor');
         const cursorFollower = document.querySelector('.cursor-follower');
+        const links = document.querySelectorAll('a, button, .clickable');
+
+        let posX = 0, posY = 0;
+        let mouseX = 0, mouseY = 0;
+
+        // Smoothing factor (0 < speed < 1)
+        const speed = 0.1;
+
+        function animate() {
+            // Calculate distance from cursor to mouse
+            let distX = mouseX - posX;
+            let distY = mouseY - posY;
+
+            // Ease out the movement
+            posX += distX * speed;
+            posY += distY * speed;
+
+            // Apply transforms
+            cursor.style.left = `${posX}px`;
+            cursor.style.top = `${posY}px`;
+            cursorFollower.style.left = `${posX}px`;
+            cursorFollower.style.top = `${posY}px`;
+
+            requestAnimationFrame(animate);
+        }
 
         document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-
-            setTimeout(() => {
-                cursorFollower.style.left = e.clientX + 'px';
-                cursorFollower.style.top = e.clientY + 'px';
-            }, 100);
+            mouseX = e.clientX;
+            mouseY = e.clientY;
         });
 
-        document.querySelectorAll('a, button, input, textarea, .tech-icon, .project-card').forEach(element => {
-            element.addEventListener('mouseenter', () => {
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => {
                 cursor.classList.add('active');
                 cursorFollower.classList.add('active');
+
+                // Special effect for different link types
+                if (link.classList.contains('cta')) {
+                    cursorFollower.style.transform = 'translate(-50%, -50%) scale(2.5)';
+                    cursorFollower.style.opacity = '0.2';
+                }
             });
 
-            element.addEventListener('mouseleave', () => {
+            link.addEventListener('mouseleave', () => {
                 cursor.classList.remove('active');
                 cursorFollower.classList.remove('active');
+                cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursorFollower.style.opacity = '0.3';
             });
         });
+
+        // Start animation
+        animate();
 
         // Dark/Light mode toggle
         const toggle = document.getElementById('toggle');
@@ -1222,29 +1264,29 @@ nav.scrolled-down {
 
         heroObserver.observe(document.getElementById('home'));
 
-        // Ajouter ceci à ton script existant
-let lastScroll = 0;
-const navbar = document.querySelector('nav');
+        // Visibilité de la navbar en fonction du scroll
+        let lastScroll = 0;
+        const navbar = document.querySelector('nav');
 
-window.addEventListener('scroll', () => {
-  const currentScroll = window.pageYOffset;
-  
-  if (currentScroll <= 0) {
-    navbar.classList.remove('scrolled-up');
-    navbar.classList.remove('scrolled-down');
-    return;
-  }
-  
-  if (currentScroll > lastScroll && !navbar.classList.contains('scrolled-down')) {
-    navbar.classList.remove('scrolled-up');
-    navbar.classList.add('scrolled-down');
-  } else if (currentScroll < lastScroll && navbar.classList.contains('scrolled-down')) {
-    navbar.classList.remove('scrolled-down');
-    navbar.classList.add('scrolled-up');
-  }
-  
-  lastScroll = currentScroll;
-});
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll <= 0) {
+                navbar.classList.remove('scrolled-up');
+                navbar.classList.remove('scrolled-down');
+                return;
+            }
+
+            if (currentScroll > lastScroll && !navbar.classList.contains('scrolled-down')) {
+                navbar.classList.remove('scrolled-up');
+                navbar.classList.add('scrolled-down');
+            } else if (currentScroll < lastScroll && navbar.classList.contains('scrolled-down')) {
+                navbar.classList.remove('scrolled-down');
+                navbar.classList.add('scrolled-up');
+            }
+
+            lastScroll = currentScroll;
+        });
     </script>
 </body>
 
