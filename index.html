@@ -388,7 +388,7 @@
             <div class="relative flex justify-center">
                 <div
                     class="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-slate-700 shadow-xl">
-                    <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+                    <img src="./public/images/aures-illustration.png"
                         alt="Photo de profil" class="w-full h-full object-cover">
                 </div>
                 <div
@@ -671,8 +671,8 @@
                 <div class="project-inner relative w-full h-full">
                     <div class="project-front absolute w-full h-full bg-slate-800 p-6 flex flex-col">
                         <div class="flex-1 bg-slate-700 rounded-lg overflow-hidden mb-4">
-                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                                alt="Projet 1" class="w-full h-full object-cover">
+                            <img src="./public/images/project-ov.png"
+                                alt="Projet 1" class="w-full h-full object-cover contains">
                         </div>
                         <h3 class="text-xl font-bold">Plateforme E-commerce</h3>
                         <p class="text-slate-400 text-sm">React, Node.js, MongoDB</p>
@@ -709,7 +709,7 @@
                 <div class="project-inner relative w-full h-full">
                     <div class="project-front absolute w-full h-full bg-slate-800 p-6 flex flex-col">
                         <div class="flex-1 bg-slate-700 rounded-lg overflow-hidden mb-4">
-                            <img src="https://images.unsplash.com/photo-1555421689-3f034debb7a6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                            <img src="./public/images/project-ov.png"
                                 alt="Projet 2" class="w-full h-full object-cover">
                         </div>
                         <h3 class="text-xl font-bold">Application de gestion</h3>
@@ -747,7 +747,7 @@
                 <div class="project-inner relative w-full h-full">
                     <div class="project-front absolute w-full h-full bg-slate-800 p-6 flex flex-col">
                         <div class="flex-1 bg-slate-700 rounded-lg overflow-hidden mb-4">
-                            <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                            <img src="./public/images/project-ov.png"
                                 alt="Projet 3" class="w-full h-full object-cover">
                         </div>
                         <h3 class="text-xl font-bold">Réseau social</h3>
@@ -785,7 +785,7 @@
                 <div class="project-inner relative w-full h-full">
                     <div class="project-front absolute w-full h-full bg-slate-800 p-6 flex flex-col">
                         <div class="flex-1 bg-slate-700 rounded-lg overflow-hidden mb-4">
-                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1415&q=80"
+                            <img src="./public/images/project-ov.png"
                                 alt="Projet 4" class="w-full h-full object-cover">
                         </div>
                         <h3 class="text-xl font-bold">Tableau de bord analytique</h3>
@@ -823,7 +823,7 @@
                 <div class="project-inner relative w-full h-full">
                     <div class="project-front absolute w-full h-full bg-slate-800 p-6 flex flex-col">
                         <div class="flex-1 bg-slate-700 rounded-lg overflow-hidden mb-4">
-                            <img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                            <img src="./public/images/project-ov.png"
                                 alt="Projet 5" class="w-full h-full object-cover">
                         </div>
                         <h3 class="text-xl font-bold">Application mobile</h3>
@@ -861,7 +861,7 @@
                 <div class="project-inner relative w-full h-full">
                     <div class="project-front absolute w-full h-full bg-slate-800 p-6 flex flex-col">
                         <div class="flex-1 bg-slate-700 rounded-lg overflow-hidden mb-4">
-                            <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                            <img src="./public/images/project-ov.png"
                                 alt="Projet 6" class="w-full h-full object-cover">
                         </div>
                         <h3 class="text-xl font-bold">Portfolio artistique</h3>
@@ -1222,8 +1222,8 @@
 
         // Flip card functionality
         document.querySelectorAll('.project-card').forEach(card => {
-            const frontButton = card.querySelector('.project-front button');
-            const backButton = card.querySelector('.project-back button');
+            const frontButton = card.querySelector('.project-front ');
+            const backButton = card.querySelector('.project-back ');
 
             frontButton.addEventListener('click', () => {
                 card.classList.add('flipped');
