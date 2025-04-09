@@ -50,13 +50,57 @@ backToTopButton.addEventListener('click', () => {
 // Form submission
 const contactForm = document.getElementById('contact-form');
 
-contactForm.addEventListener('submit', (e) => {
+contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    
+    // Récupère le bouton submit
+    const submitButton = contactForm.querySelector('button[type="submit"]');
+    const originalButtonText = submitButton.innerHTML;
 
-    // Here you would typically send the form data to a server
-    // For this example, we'll just show an alert
-    alert('Merci pour votre message ! Je vous répondrai dès que possible.');
-    contactForm.reset();
+    // Affiche un état de chargement
+    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
+    submitButton.disabled = true;
+
+    try {
+        // Utilise FormData pour récupérer les données du formulaire
+        const formData = new FormData(contactForm);
+        
+        // Envoie les données à Formspree
+        const response = await fetch(contactForm.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            // Succès
+            Swal.fire({
+                icon: 'success',
+                title: 'Message envoyé !',
+                text: 'Je vous répondrai dans les plus brefs délais',
+                confirmButtonColor: '#7e22ce'
+            });
+            contactForm.reset();
+        } else {
+            // Erreur de soumission
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Erreur inconnue');
+        }
+    } catch (error) {
+        // Erreur réseau ou de traitement
+        Swal.fire({
+            icon: 'error',
+            title: 'Oups...',
+            text: `Échec de l'envoi : ${error.message}`,
+            confirmButtonColor: '#7e22ce'
+        });
+    } finally {
+        // Réinitialise le bouton
+        submitButton.innerHTML = originalButtonText;
+        submitButton.disabled = false;
+    }
 });
 
 // Custom cursor effect
@@ -165,8 +209,8 @@ toggleMobile.addEventListener('change', () => {
 // Typing animation
 const professions = [
     "Développeur Fullstack",
-    "Spécialiste React",
-    "Passionné de Node.js",
+    "Développeur d'applications",
+    "Passionné de Javascript",
     "Designer d'interfaces",
     "Solutionneur de problèmes"
 ];
