@@ -1,12 +1,22 @@
 {
     "version": 2,
     "builds": [
-      {
-        "src": "/*",
-        "use": "@vercel/static"
-      }
+        {
+            "src": "/*",
+            "use": "@vercel/static"
+        }
     ],
     "routes": [
-      { "src": "/.*", "dest": "/index.html" }
+        {
+            "src": "/assets/(.*)",
+            "dest": "/public/$1",
+            "headers": {
+                "Cache-Control": "max-age=31536000"
+            }
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/index.html"
+        }
     ]
-  }
+}
