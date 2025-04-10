@@ -12,17 +12,17 @@
     ],
     "routes": [
       {
-        "src": "/css/(.*)",
+        "src": "public/css/(.*)",
         "dest": "/public/css/$1",
         "headers": { "Cache-Control": "public, max-age=31536000" }
       },
       {
-        "src": "/js/(.*)",
+        "src": "public/js/(.*)",
         "dest": "/public/js/$1",
         "headers": { "Cache-Control": "public, max-age=31536000" }
       },
       {
-        "src": "/images/(.*)",
+        "src": "./public/images/(.*)",
         "dest": "/public/images/$1"
       },
       {
