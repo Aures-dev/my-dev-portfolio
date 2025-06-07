@@ -1,0 +1,19 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+.bg-primary {
+  background-color: #0ea5e9;
+}
+.text-primary {
+  color: #0ea5e9;
+}
+.border-primary {
+  border-color: #0ea5e9;
+}
+.gradient-text {
+  background: linear-gradient(90deg, #0ea5e9, #38bdf8, #7dd3fc);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
