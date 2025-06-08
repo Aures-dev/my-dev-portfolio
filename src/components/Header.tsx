@@ -2,21 +2,15 @@
 
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
-import { useTheme } from "next-themes";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
 
 export default function Header() {
-  const { theme, setTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [scrollClass, setScrollClass] = useState("");
   const mobileMenuRef = useRef<HTMLDivElement>(null);
-
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
 
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
@@ -30,11 +24,21 @@ export default function Header() {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      window.addEventListener("scroll", handleScroll);
+      let ticking = false;
+      const onScroll = () => {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            handleScroll();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      };
+      window.addEventListener("scroll", onScroll);
+      return () => {
+        window.removeEventListener("scroll", onScroll);
+      };
     }
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
   }, [lastScrollY]);
 
   // Gérer le focus pour l'accessibilité
@@ -44,6 +48,7 @@ export default function Header() {
     }
   }, [isMobileMenuOpen]);
 
+  // Déclaration des liens de navigation placée AVANT le return pour éviter les erreurs
   const navLinks = [
     { href: "/#home", label: "Accueil" },
     { href: "/#about", label: "À propos" },
@@ -56,7 +61,7 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-background/90 transition-all duration-300 ${scrollClass} ${
         scrollClass === "scrolled-down" ? "shadow-md" : ""
-      }`}
+      } ${scrollClass === "scrolled-down" ? "-translate-y-full md:-translate-y-20" : "translate-y-0"} md:transition-transform md:duration-500`}
       role="banner"
     >
       <nav
