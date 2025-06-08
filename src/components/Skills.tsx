@@ -33,7 +33,7 @@ export default function Skills() {
         <h3 className="text-xl font-bold mb-8 text-center" id="tech-heading">
           Technologies que j'utilise
         </h3>
-        <div className="tech-scroll-container overflow-hidden" role="region" aria-labelledby="tech-heading">
+        <div className="tech-scroll-container p-2 overflow-hidden" role="region" aria-labelledby="tech-heading">
           <div className="tech-scroll flex animate-scroll">
             {techIcons.map((icon, i) => (
               <TooltipProvider key={i}>
@@ -146,14 +146,14 @@ const techNames = [
 ];
 
 const techIcons: ReactNode[] = [
-  <Icon icon="logos:html-5" width={32} key="html5" />,
-  <Icon icon="logos:css-3" width={32} key="css3" />,
-  <Icon icon="logos:javascript" width={32} key="javascript" />,
-  <Icon icon="logos:react" width={32} key="react" />,
-  <Icon icon="logos:vue" width={32} key="vue" />,
-  <Icon icon="logos:nodejs" width={32} key="nodejs" />,
-  <Icon icon="logos:python" width={32} key="python" />,
-  <Icon icon="logos:php" width={32} key="php" />,
-  <Icon icon="logos:mysql" width={32} key="mysql" />,
-  <Icon icon="logos:git" width={32} key="git" />,
+  <Icon icon="logos:html-5" width={48} key="html5" />,
+  <Icon icon="logos:css-3" width={48} key="css3" />,
+  <Icon icon="logos:javascript" width={48} key="javascript" />,
+  <Icon icon="logos:react" width={48} key="react" />,
+  <Icon icon="logos:vue" width={48} key="vue" />,
+  <Icon icon="logos:nodejs" width={48} key="nodejs" />,
+  <Icon icon="logos:python" width={48} key="python" />,
+  <Icon icon="logos:php" width={48} key="php" />,
+  <Icon icon="logos:mysql" width={48} key="mysql" />,
+  <Icon icon="logos:git" width={48} key="git" />,
 ];

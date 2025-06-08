@@ -69,7 +69,7 @@ export default function Header() {
         role="navigation"
         aria-label="Navigation principale"
       >
-        <Link href="#home" className="flex items-center space-x-2 text-xl font-bold gradient-text">
+        <Link href="/#home" className="flex items-center space-x-2 text-xl font-bold gradient-text">
           <span>Aurès AZ.</span>
         </Link>
 

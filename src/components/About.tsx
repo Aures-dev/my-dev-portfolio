@@ -20,20 +20,20 @@ export default function About() {
           <div className="floating">
             <div className="relative w-full h-full bg-muted rounded-xl overflow-hidden shadow-2xl">
               <Image
-                src="/images/aures-about.png"
+                src="/images/quote_illustration_1.png"
                 alt="Code"
                 width={600}
                 height={400}
                 className="object-cover w-full h-full"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
-              <div className="absolute bottom-0 left-0 p-6">
+              {/* <div className="absolute bottom-0 left-0 p-6">
                 <h3 className="text-lg font-bold">Steve Jobs</h3>
                 <p className="text-muted-foreground">
                   "L&apos;innovation, c&apos;est ce qui distingue le leader du
                   suiveur."
                 </p>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
