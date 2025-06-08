@@ -67,3 +67,35 @@
 }
 
 /*  */
+.scrolled-down {
+  transform: translateY(0);
+}
+
+.scrolled-up {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .scrolled-down {
+    transform: translateY(-100%);
+  }
+
+  .scrolled-up {
+    transform: translateY(0);
+  }
+}
+
+/*  */
+.cursor,
+.cursor-follower {
+  transform: translate(-50%, -50%);
+}
+
+.cursor.active {
+  scale: 1.5;
+}
+
+.cursor-follower.active {
+  transform: translate(-50%, -50%) scale(2.5);
+  opacity: 0.2;
+}

@@ -1,5 +1,6 @@
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import CustomCursor from "@/components/CustomCursor";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,6 +13,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="fr" suppressHydrationWarning>
       <body className="min-h-screen bg-background text-foreground">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <CustomCursor />
           {children}
         </ThemeProvider>
       </body>

@@ -6,9 +6,13 @@ import { ArrowLeft, ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
+
+
+
+
 export default function BudgetTrackerPage() {
   return (
-    <main className="max-w-4xl mx-auto py-12 px-4">
+    <main className="max-w-4xl mx-auto pt-24 py-12 px-4">
       <h1 className="text-3xl md:text-4xl font-bold mb-4 gradient-text">
         Budget Tracker
       </h1>
@@ -23,6 +27,8 @@ export default function BudgetTrackerPage() {
               src={`/images/projects/budget-tracker/${img}.png`}
               alt={img}
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              priority
               className="object-cover"
             />
           </div>
@@ -63,14 +69,19 @@ export default function BudgetTrackerPage() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Button className="w-full md:w-auto">
+          <Button
+            className="w-full cursor-pointer md:w-auto transition-colors duration-200 hover:bg-sky-100 hover:text-sky-800"
+          >
             <ExternalLink className="mr-2 h-4 w-4" />
             Visiter le site
           </Button>
         </a>
 
         <Link href="/#projects">
-          <Button variant="outline" className="w-full md:w-auto">
+          <Button
+            variant="outline"
+            className="w-full cursor-pointer md:w-auto transition-colors duration-200 hover:bg-sky-100 hover:text-sky-800"
+          >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Retour aux projets
           </Button>
