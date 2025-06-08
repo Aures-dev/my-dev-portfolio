@@ -1,9 +1,7 @@
-// components/ThemeToggle.tsx
 "use client";
 
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { Switch } from "@/components/ui/switch";
 import { useEffect, useState } from "react";
 
 export default function ThemeToggle() {
@@ -17,14 +15,16 @@ export default function ThemeToggle() {
   if (!mounted) return null;
 
   return (
-    <div className="flex items-center gap-2">
-      <Sun className="h-4 w-4 text-primary" />
-      <Switch
-        className={theme === "light" ? "bg-primary" : "bg-secondary"}
-        checked={theme === "light"}
-        onCheckedChange={() => setTheme(theme === "light" ? "dark" : "light")}
-      />
-      <Moon className="h-4 w-4 text-secondary" />
-    </div>
+    <button
+      className="flex items-center gap-2 p-2 rounded transition-colors"
+      aria-label="Toggle theme"
+      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+    >
+      {theme === "light" ? (
+      <Sun className="h-5 w-5 text-yellow-500" />
+      ) : (
+      <Moon className="h-5 w-5 text-blue-400" />
+      )}
+    </button>
   );
 }
