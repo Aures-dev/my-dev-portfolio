@@ -12,17 +12,19 @@ export default function Header() {
   const [scrollClass, setScrollClass] = useState("");
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
-  const handleScroll = () => {
-    const currentScrollY = window.scrollY;
-    if (currentScrollY > lastScrollY && currentScrollY > 50) {
-      setScrollClass("scrolled-down");
-    } else {
-      setScrollClass("scrolled-up");
-    }
-    setLastScrollY(currentScrollY);
-  };
 
   useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY && currentScrollY > 50) {
+        setScrollClass("scrolled-down");
+      } else {
+        setScrollClass("scrolled-up");
+      }
+      setLastScrollY(currentScrollY);
+    };
+
+
     if (typeof window !== "undefined") {
       let ticking = false;
       const onScroll = () => {
@@ -59,9 +61,8 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-background/90 transition-all duration-300 ${scrollClass} ${
-        scrollClass === "scrolled-down" ? "shadow-md" : ""
-      } ${scrollClass === "scrolled-down" ? "-translate-y-full md:-translate-y-20" : "translate-y-0"} md:transition-transform md:duration-500`}
+      className={`fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-background/90 transition-all duration-300 ${scrollClass} ${scrollClass === "scrolled-down" ? "shadow-md" : ""
+        } ${scrollClass === "scrolled-down" ? "-translate-y-full md:-translate-y-20" : "translate-y-0"} md:transition-transform md:duration-500`}
       role="banner"
     >
       <nav

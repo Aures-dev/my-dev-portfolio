@@ -31,7 +31,7 @@ export default function Skills() {
 
       <div className="mt-16">
         <h3 className="text-xl font-bold mb-8 text-center" id="tech-heading">
-          Technologies que j'utilise
+          Technologies que j&apos;utilise
         </h3>
         <div className="tech-scroll-container p-2 overflow-hidden" role="region" aria-labelledby="tech-heading">
           <div className="tech-scroll flex animate-scroll">
