@@ -11,6 +11,8 @@ import {
   Send,
   User,
 } from "lucide-react";
+import { Toaster } from "@/components/ui/sonner";
+import { toast } from "sonner";
 
 import { Icon } from "@iconify/react/dist/iconify.js";
 const Linkedin = (props: React.ComponentProps<typeof Icon>) => (
@@ -41,9 +43,9 @@ export default function Contact() {
 
     if (response.ok) {
       form.reset();
-      alert("Message envoyé !");
+      toast.success("Message envoyé !");
     } else {
-      alert("Erreur lors de l'envoi.");
+      toast.error("Erreur lors de l'envoi.");
     }
 
     setLoading(false);
@@ -54,6 +56,7 @@ export default function Contact() {
       id="contact"
       className="section py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
     >
+      <Toaster />
       <div className="text-center mb-16">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">
           Me <span className="gradient-text">contacter</span>
