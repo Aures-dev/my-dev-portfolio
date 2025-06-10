@@ -9,7 +9,6 @@ import {
   Phone,
   MapPin,
   Send,
-  User,
 } from "lucide-react";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
@@ -21,7 +20,9 @@ const Linkedin = (props: React.ComponentProps<typeof Icon>) => (
 const Github = (props: React.ComponentProps<typeof Icon>) => (
   <Icon {...props} icon="mdi:github" />
 );
-
+const Whatsapp = (props: React.ComponentProps<typeof Icon>) => (
+  <Icon {...props} icon="mdi:whatsapp" />
+);
 
 export default function Contact() {
   const [loading, setLoading] = useState(false);
@@ -83,12 +84,12 @@ export default function Contact() {
             <h4 className="font-bold mb-2">Réseaux sociaux</h4>
             <div className="flex space-x-4">
               <a
-              href="https://www.linkedin.com/in/aures-assogba-zehe"
-              target="_blank"
-              rel="noopener"
-              className="p-4 bg-muted rounded-lg hover:bg-blue-600 transition-all"
+                href="https://www.linkedin.com/in/aures-assogba-zehe"
+                target="_blank"
+                rel="noopener"
+                className="p-4 bg-muted rounded-lg hover:bg-blue-600 transition-all"
               >
-              <Linkedin className="text-blue-400 w-7 h-7" icon={""} />
+                <Linkedin className="text-blue-400 w-7 h-7" icon={""} />
               </a>
               <a
                 href="https://github.com/Aures-dev"
@@ -97,10 +98,12 @@ export default function Contact() {
                 <Github className="text-purple-500 w-7 h-7" icon={""} />
               </a>
               <a
-                href="#"
-                className="p-4 bg-muted rounded-lg hover:bg-sky-600 transition-all"
+                // href="https://wa.me/22956050265"
+                href="https://wa.link/ofl41h"
+                target="_blank"
+                className="p-4 bg-muted rounded-lg hover:bg-green-600 transition-all"
               >
-                <User className="text-sky-300 w-7 h-7" />
+                  <Whatsapp className="text-green-500 w-7 h-7" icon={""} />
               </a>
             </div>
           </div>

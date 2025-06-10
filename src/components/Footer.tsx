@@ -8,7 +8,9 @@ const Linkedin = (props: React.ComponentProps<typeof Icon>) => (
 const Github = (props: React.ComponentProps<typeof Icon>) => (
   <Icon {...props} icon="mdi:github" />
 );
-import { User } from "lucide-react";
+const Whatsapp = (props: React.ComponentProps<typeof Icon>) => (
+  <Icon {...props} icon="mdi:whatsapp" />
+);
 
 export default function Footer() {
   return (
@@ -39,11 +41,13 @@ export default function Footer() {
               <Github className="w-5 h-5" icon={""} />
             </a>
             <a
-              href="#"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <User className="w-5 h-5" />
-            </a>
+                // href="https://wa.me/22956050265"
+                href="https://wa.link/ofl41h"
+                target="_blank"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                  <Whatsapp className="w-5 h-5" icon={""} />
+              </a>
           </div>
         </div>
 
