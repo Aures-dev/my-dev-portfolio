@@ -1,193 +1,272 @@
-"use client";
-
-import { useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
+import { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
-  Mail,
+  Envelope,
   Phone,
   MapPin,
-  Send,
-} from "lucide-react";
-import { Toaster } from "@/components/ui/sonner";
-import { toast } from "sonner";
+  LinkedinLogo,
+  GithubLogo,
+  WhatsappLogo,
+  PaperPlaneTilt
+} from 'phosphor-react';
+import { toast, Toaster } from 'sonner';
 
-import { Icon } from "@iconify/react/dist/iconify.js";
-const Linkedin = (props: React.ComponentProps<typeof Icon>) => (
-  <Icon {...props} icon="mdi:linkedin" />
-);
-const Github = (props: React.ComponentProps<typeof Icon>) => (
-  <Icon {...props} icon="mdi:github" />
-);
-const Whatsapp = (props: React.ComponentProps<typeof Icon>) => (
-  <Icon {...props} icon="mdi:whatsapp" />
-);
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Contact() {
-  const [loading, setLoading] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 60%',
+        toggleActions: 'play none none reverse'
+      }
+    });
+
+    tl.fromTo('.contact-info',
+      { opacity: 0, x: -100, filter: 'blur(10px)' },
+      { opacity: 1, x: 0, filter: 'blur(0px)', duration: 1, ease: 'power3.out' }
+    )
+    .fromTo('.contact-form',
+      { opacity: 0, x: 100, filter: 'blur(10px)' },
+      { opacity: 1, x: 0, filter: 'blur(0px)', duration: 1, ease: 'power3.out' },
+      '-=0.7'
+    );
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
+    setIsSubmitting(true);
 
     const form = e.currentTarget;
-    const data = new FormData(form);
+    const formData = new FormData(form);
 
-    const response = await fetch("https://formspree.io/f/xrbprgdb", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-      },
-      body: data,
-    });
+    try {
+      const response = await fetch('https://formspree.io/f/xrbprgdb', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
 
-    if (response.ok) {
-      form.reset();
-      toast.success("Message envoyé !");
-    } else {
-      toast.error("Erreur lors de l'envoi.");
+      if (response.ok) {
+        toast.success('Message envoyé avec succès!', {
+          description: 'Je vous répondrai dans les plus brefs délais.',
+          duration: 5000
+        });
+        form.reset();
+      } else {
+        throw new Error('Erreur lors de l\'envoi');
+      }
+    } catch (error) {
+      toast.error('Erreur lors de l\'envoi', {
+        description: 'Veuillez réessayer plus tard.',
+        duration: 5000
+      });
+    } finally {
+      setIsSubmitting(false);
     }
-
-    setLoading(false);
   };
+
+  const contactInfo = [
+    {
+      icon: Envelope,
+      label: 'Email',
+      value: 'auresaz69@gmail.com',
+      href: 'mailto:auresaz69@gmail.com'
+    },
+    {
+      icon: Phone,
+      label: 'Téléphone',
+      value: '+229 01 56 05 02 65',
+      href: 'tel:+22901560502065'
+    },
+    {
+      icon: MapPin,
+      label: 'Localisation',
+      value: 'Cotonou, Bénin',
+      href: null
+    }
+  ];
+
+  const socialLinks = [
+    {
+      icon: LinkedinLogo,
+      name: 'LinkedIn',
+      href: 'https://www.linkedin.com/in/aures-assogba-zehe',
+      color: 'hover:text-blue-400'
+    },
+    {
+      icon: GithubLogo,
+      name: 'GitHub',
+      href: 'https://github.com/Aures-dev',
+      color: 'hover:text-white'
+    },
+    {
+      icon: WhatsappLogo,
+      name: 'WhatsApp',
+      href: 'https://wa.link/ofl41h',
+      color: 'hover:text-green-400'
+    }
+  ];
 
   return (
     <section
       id="contact"
-      className="section py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+      ref={sectionRef}
+      className="relative min-h-screen py-20 px-6 bg-black overflow-hidden"
     >
-      <Toaster />
-      <div className="text-center mb-16">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">
-          Me <span className="gradient-text">contacter</span>
+      <Toaster position="top-right" theme="dark" />
+
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-purple-950/10 to-black" />
+
+      <div className="glow-orb absolute top-40 left-20 w-96 h-96 bg-violet-500/10 rounded-full blur-3xl" />
+      <div className="glow-orb absolute bottom-40 right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
+
+      <div className="relative z-10 max-w-7xl mx-auto">
+        <h2
+          className="text-5xl md:text-6xl font-bold text-white mb-4 tracking-tight text-center"
+          style={{ textShadow: '0 0 30px rgba(139, 92, 246, 0.5)' }}
+        >
+          Entrons en <span className="text-violet-400">contact</span>
         </h2>
-        <div className="w-20 h-1 bg-sky-500 mx-auto" />
-      </div>
+        <p className="text-white/70 text-lg mb-16 font-light text-center">
+          Un projet en tête ? Discutons-en ensemble
+        </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        {/* Infos de contact */}
-        <div className="space-y-6 text-muted-foreground">
-          <h3 className="text-2xl font-bold text-foreground">
-            Discutons de votre projet
-          </h3>
-          <p>
-            Vous avez un projet en tête ou souhaitez discuter d&apos;une
-            opportunité ? Contactez-moi.
-          </p>
+        <div className="grid md:grid-cols-2 gap-12">
+          <div className="contact-info space-y-8">
+            <div>
+              <h3 className="text-2xl font-bold text-white mb-6">Informations de contact</h3>
+              <div className="space-y-4">
+                {contactInfo.map((info, index) => (
+                  <div key={index}>
+                    {info.href ? (
+                      <a
+                        href={info.href}
+                        className="flex items-start gap-4 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-violet-500/50 hover:bg-white/10 transition-all duration-300 group"
+                      >
+                        <info.icon
+                          size={24}
+                          weight="light"
+                          className="text-violet-400 mt-1 group-hover:scale-110 transition-transform"
+                        />
+                        <div>
+                          <p className="text-white/50 text-sm mb-1">{info.label}</p>
+                          <p className="text-white font-light">{info.value}</p>
+                        </div>
+                      </a>
+                    ) : (
+                      <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
+                        <info.icon
+                          size={24}
+                          weight="light"
+                          className="text-violet-400 mt-1"
+                        />
+                        <div>
+                          <p className="text-white/50 text-sm mb-1">{info.label}</p>
+                          <p className="text-white font-light">{info.value}</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
 
-          <ContactInfo icon={<Mail />} label="Email" value="auresaz69@gmail.com" />
-          <ContactInfo icon={<Phone />} label="Téléphone" value="+229 01 56 05 02 65" />
-          <ContactInfo icon={<MapPin />} label="Localisation" value="Cotonou, Bénin" />
-
-          <div className="pt-4">
-            <h4 className="font-bold mb-2">Réseaux sociaux</h4>
-            <div className="flex space-x-4">
-              <a
-                href="https://www.linkedin.com/in/aures-assogba-zehe"
-                target="_blank"
-                rel="noopener"
-                className="p-4 bg-muted rounded-lg hover:bg-blue-600 transition-all"
-              >
-                <Linkedin className="text-blue-400 w-7 h-7" icon={""} />
-              </a>
-              <a
-                href="https://github.com/Aures-dev"
-                className="p-4 bg-muted rounded-lg hover:bg-gray-700 transition-all"
-              >
-                <Github className="text-purple-500 w-7 h-7" icon={""} />
-              </a>
-              <a
-                // href="https://wa.me/22956050265"
-                href="https://wa.link/ofl41h"
-                target="_blank"
-                className="p-4 bg-muted rounded-lg hover:bg-green-600 transition-all"
-              >
-                  <Whatsapp className="text-green-500 w-7 h-7" icon={""} />
-              </a>
+            <div>
+              <h3 className="text-2xl font-bold text-white mb-6">Réseaux sociaux</h3>
+              <div className="flex gap-4">
+                {socialLinks.map((social, index) => (
+                  <a
+                    key={index}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-violet-500/50 hover:bg-white/10 transition-all duration-300 group ${social.color}`}
+                    style={{ boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)' }}
+                  >
+                    <social.icon
+                      size={32}
+                      weight="light"
+                      className="group-hover:scale-110 transition-transform"
+                    />
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Formulaire */}
-        <div className="bg-muted rounded-xl p-8 shadow-xl">
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="contact-form">
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-1">
-                  Nom complet
-                </label>
-                <Input
-                  id="name"
+                <input
+                  type="text"
                   name="name"
                   required
-                  placeholder="Ex: Jean Dupont"
+                  placeholder="Votre nom"
+                  className="w-full px-6 py-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 focus:border-violet-500/50 text-white placeholder:text-white/40 outline-none transition-all duration-300"
+                  style={{ boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)' }}
                 />
               </div>
+
               <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-1">
-                  Email
-                </label>
-                <Input
-                  id="email"
-                  name="email"
+                <input
                   type="email"
+                  name="email"
                   required
-                  placeholder="votre@email.com"
+                  placeholder="Votre email"
+                  className="w-full px-6 py-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 focus:border-violet-500/50 text-white placeholder:text-white/40 outline-none transition-all duration-300"
+                  style={{ boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)' }}
                 />
               </div>
-            </div>
-            <div>
-              <label htmlFor="subject" className="block text-sm font-medium mb-1">
-                Sujet
-              </label>
-              <Input
-                id="subject"
-                name="subject"
-                required
-                placeholder="Sujet du message"
-              />
-            </div>
-            <div>
-              <label htmlFor="message" className="block text-sm font-medium mb-1">
-                Message
-              </label>
-              <Textarea
-                id="message"
-                name="message"
-                rows={5}
-                required
-                placeholder="Votre message ici..."
-              />
-            </div>
-            <div className="pt-2">
-              <Button type="submit" className="w-full cursor-pointer" disabled={loading}>
-                {loading ? "Envoi en cours..." : <>Envoyer <Send className="ml-2 w-4 h-4" /></>}
-              </Button>
-            </div>
-          </form>
+
+              <div>
+                <input
+                  type="text"
+                  name="subject"
+                  required
+                  placeholder="Sujet"
+                  className="w-full px-6 py-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 focus:border-violet-500/50 text-white placeholder:text-white/40 outline-none transition-all duration-300"
+                  style={{ boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)' }}
+                />
+              </div>
+
+              <div>
+                <textarea
+                  name="message"
+                  required
+                  rows={6}
+                  placeholder="Votre message"
+                  className="w-full px-6 py-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 focus:border-violet-500/50 text-white placeholder:text-white/40 outline-none resize-none transition-all duration-300"
+                  style={{ boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)' }}
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full group relative px-8 py-4 bg-gradient-to-r from-violet-600 to-purple-600 text-white rounded-xl font-medium tracking-wide overflow-hidden transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                style={{
+                  boxShadow: '0 0 30px rgba(139, 92, 246, 0.5)'
+                }}
+              >
+                <span className="relative z-10 flex items-center justify-center gap-2">
+                  {isSubmitting ? 'Envoi en cours...' : 'Envoyer le message'}
+                  <PaperPlaneTilt size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-violet-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </section>
-  );
-}
-
-function ContactInfo({
-  icon,
-  label,
-  value,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  value: string;
-}) {
-  return (
-    <div className="flex items-start space-x-4">
-      <div className="p-3 bg-muted rounded-lg">{icon}</div>
-      <div>
-        <h4 className="font-bold text-foreground">{label}</h4>
-        <p className="text-muted-foreground">{value}</p>
-      </div>
-    </div>
   );
 }

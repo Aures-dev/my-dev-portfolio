@@ -1,68 +1,84 @@
-"use client";
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Heart } from 'phosphor-react';
 
-import { Icon } from "@iconify/react/dist/iconify.js";
-
-const Linkedin = (props: React.ComponentProps<typeof Icon>) => (
-  <Icon {...props} icon="mdi:linkedin" />
-);
-const Github = (props: React.ComponentProps<typeof Icon>) => (
-  <Icon {...props} icon="mdi:github" />
-);
-const Whatsapp = (props: React.ComponentProps<typeof Icon>) => (
-  <Icon {...props} icon="mdi:whatsapp" />
-);
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Footer() {
+  const footerRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    gsap.fromTo(footerRef.current,
+      { opacity: 0, y: 60, filter: 'blur(10px)' },
+      {
+        opacity: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: 'top 90%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
+
+    const particles = document.querySelectorAll('.footer-particle');
+    particles.forEach((particle, index) => {
+      gsap.to(particle, {
+        y: -15,
+        duration: 2 + index * 0.5,
+        repeat: -1,
+        yoyo: true,
+        ease: 'power1.inOut',
+        delay: index * 0.2
+      });
+    });
+  }, []);
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <footer className="py-12 px-4 sm:px-6 lg:px-8 bg-muted/10">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-6 md:mb-0">
-            <span className="text-xl font-bold gradient-text">
-              Aurès Assogba-zehe
-            </span>
-            <p className="text-muted-foreground mt-2">
-              Développeur Fullstack innovant et passionné.
-            </p>
+    <footer ref={footerRef} className="relative py-12 px-6 bg-black overflow-hidden border-t border-white/10">
+      <div className="footer-particle absolute top-10 left-20 w-32 h-32 bg-violet-500/10 rounded-full blur-2xl" />
+      <div className="footer-particle absolute bottom-10 right-40 w-40 h-40 bg-purple-500/10 rounded-full blur-2xl" />
+      <div className="footer-particle absolute top-20 right-20 w-24 h-24 bg-violet-600/10 rounded-full blur-2xl" />
+
+      <div className="relative z-10 max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+          <div
+            className="text-3xl font-bold text-white tracking-tight cursor-pointer"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            style={{ textShadow: '0 0 20px rgba(139, 92, 246, 0.6)' }}
+          >
+            AZ
           </div>
-          <div className="flex space-x-6">
-            <a
-              href="https://www.linkedin.com/in/aures-assogba-zehe"
-              target="_blank"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <Linkedin className="w-5 h-5" icon={""} />
-            </a>
-            <a
-              href="https://github.com/Aures-dev"
-              target="_blank"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <Github className="w-5 h-5" icon={""} />
-            </a>
-            <a
-                // href="https://wa.me/22956050265"
-                href="https://wa.link/ofl41h"
-                target="_blank"
-                className="text-muted-foreground hover:text-foreground transition-colors"
+
+          <nav className="flex flex-wrap items-center justify-center gap-6">
+            {['Accueil', 'À propos', 'Projets', 'Parcours', 'Contact'].map((item) => (
+              <button
+                key={item}
+                onClick={() => scrollToSection(item.toLowerCase().replace('à ', '').replace(' ', '-'))}
+                className="text-white/70 hover:text-white transition-all duration-300 text-sm tracking-wide relative group"
               >
-                  <Whatsapp className="w-5 h-5" icon={""} />
-              </a>
-          </div>
+                {item}
+                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-violet-500 group-hover:w-full transition-all duration-300" />
+              </button>
+            ))}
+          </nav>
         </div>
 
-        <div className="border-t border-border mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} Aurès Assogba-zehe. Tous droits réservés.
+        <div className="text-center pt-8 border-t border-white/10">
+          <p className="text-white/50 text-sm font-light flex items-center justify-center gap-2">
+            Aurès ASSOGBA-ZEHE © {new Date().getFullYear()}
           </p>
-          <div className="flex space-x-6 mt-4 md:mt-0 text-sm">
-            <a href="#" className="text-muted-foreground hover:text-foreground">
-              Mentions légales
-            </a>
-            <a href="#" className="text-muted-foreground hover:text-foreground">
-              Politique de confidentialité
-            </a>
-          </div>
         </div>
       </div>
     </footer>
