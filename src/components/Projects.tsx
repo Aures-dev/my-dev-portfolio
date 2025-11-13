@@ -23,7 +23,7 @@ export default function Projects() {
       id: 1,
       title: "Budget Tracker",
       description: "Application web moderne pour gérer vos finances personnelles et visualiser vos dépenses.",
-      image: "/src/assets/project-2.png",
+      image: "/assets/project-2.png",
       isActive: true,
       link: "https://budget-tracker-ivory-six.vercel.app"
     },
@@ -31,35 +31,35 @@ export default function Projects() {
       id: 2,
       title: "Stell's Hope",
       description: "Plateforme de vente de vêtements en ligne. Interface épurée, UX centrée sur le client.",
-      image: "/src/assets/project-1.png",
+      image: "/assets/project-1.png",
       isActive: true
     },
     {
       id: 3,
       title: "Projet à venir",
       description: "Un nouveau projet innovant en cours de développement.",
-      image: "/src/assets/coming_soon.jpg",
+      image: "/assets/coming_soon.jpg",
       isActive: false
     },
     {
       id: 4,
       title: "Projet à venir",
       description: "Un nouveau projet innovant en cours de développement.",
-      image: "/src/assets/coming_soon.jpg",
+      image: "/assets/coming_soon.jpg",
       isActive: false
     },
     {
       id: 5,
       title: "Projet à venir",
       description: "Un nouveau projet innovant en cours de développement.",
-      image: "/src/assets/coming_soon.jpg",
+      image: "/assets/coming_soon.jpg",
       isActive: false
     },
     {
       id: 6,
       title: "Projet à venir",
       description: "Un nouveau projet innovant en cours de développement.",
-      image: "/src/assets/coming_soon.jpg",
+      image: "/assets/coming_soon.jpg",
       isActive: false
     }
   ];

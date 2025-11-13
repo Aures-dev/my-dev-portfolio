@@ -74,7 +74,7 @@ export default function Hero() {
           ref={subtitleRef}
           className="text-lg md:text-xl text-white/70 mb-12 font-light tracking-wide max-w-2xl mx-auto"
         >
-          Je crée des expériences web immersives et innovantes qui fusionnent design et technologie
+          Je crée des expériences web immersives et innovantes qui fusionnent le design et l'utile
         </p>
 
         <button

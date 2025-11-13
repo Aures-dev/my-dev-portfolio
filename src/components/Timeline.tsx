@@ -15,35 +15,25 @@ export default function Timeline() {
 
   const events: TimelineEvent[] = [
     {
-      year: "2019",
-      title: "Début du parcours",
-      description: "Découverte du développement web et premiers pas en programmation"
-    },
-    {
       year: "2021",
-      title: "Formation intensive",
-      description: "Apprentissage approfondi des technologies front-end modernes"
+      title: "Début du parcours",
+      description: "Obtention du Baccalauréat et immersion dans l'apprentissage de l'anglais"
     },
     {
-      year: "2022",
-      title: "Premier projet client",
-      description: "Réalisation d'une plateforme e-commerce complète"
-    },
-    {
-      year: "2023",
-      title: "Stage Frontend",
-      description: "Expérience professionnelle en développement d'interfaces complexes"
+      year: "2022 - 2023",
+      title: "Bootcamp intensif - Cerco International",
+      description: "Immersion dans les bases de la programmation et des soft skills d'un developpeur"
     },
     {
       year: "2024",
-      title: "Développeur Full Stack",
-      description: "Expansion des compétences vers le développement back-end"
+      title: "Formation Professionnelle - HIGHFIVE UNIVERSITY",
+      description: "Apprentissage intensif des dernières technologies du marché, afin de répondre au progrès du domaine."
     },
     {
-      year: "2025",
-      title: "Présent",
-      description: "Créateur d'expériences web immersives et innovantes"
-    }
+      year: "2025 - Présent",
+      title: "Alternance professionnelle - VIPP INTERSTIS",
+      description: "Participation à la réalisation de plusieurs projets internes à l'entreprise"
+    },
   ];
 
   useEffect(() => {

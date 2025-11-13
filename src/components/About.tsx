@@ -2,11 +2,11 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
-  FileHtml,
-  FileCss,
   FileJs,
   Atom
 } from 'phosphor-react';
+import { SiNextdotjs, SiTypescript  } from "react-icons/si";
+import { FaNodeJs } from "react-icons/fa";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,10 +16,10 @@ export default function About() {
   const contentRef = useRef<HTMLDivElement>(null);
 
   const skills = [
-    { icon: FileHtml, name: 'HTML5', color: 'text-orange-400' },
-    { icon: FileCss, name: 'CSS3', color: 'text-blue-400' },
-    { icon: FileJs, name: 'JavaScript', color: 'text-yellow-400' },
-    { icon: Atom, name: 'React', color: 'text-cyan-400' }
+    { icon: SiTypescript , name: 'Typescript', color: 'text-blue-600' },
+    { icon: Atom, name: 'React', color: 'text-cyan-400' },
+    { icon: SiNextdotjs, name: 'Next.js', color: 'text-white-400' },
+    { icon: FaNodeJs, name: 'Node.js', color: 'text-green-600' },
   ];
 
   useEffect(() => {
@@ -80,7 +80,7 @@ export default function About() {
             }}
           >
             <img
-              src="/src/assets/profile.png"
+              src="/assets/profile.png"
               alt="Aurès ASSOGBA-ZEHE"
               className="w-full h-full object-cover"
             />
