@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import gsap from 'gsap';
+import { List, X } from 'phosphor-react';
 
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,6 +19,17 @@ export default function Navigation() {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isMenuOpen]);
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
@@ -47,7 +59,34 @@ export default function Navigation() {
             </button>
           ))}
         </div>
+
+        <button
+          className="md:hidden text-white p-2"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Menu"
+        >
+          {isMenuOpen ? <X size={24} /> : <List size={24} />}
+        </button>
       </div>
+
+      {isMenuOpen && (
+        <div className="md:hidden bg-black/95 backdrop-blur-lg border-t border-white/10">
+          <div className="px-6 py-4 space-y-4">
+            {['Accueil', 'À-propos', 'Projets', 'Parcours', 'Contact'].map((item) => (
+              <button
+                key={item}
+                onClick={() => {
+                  scrollToSection(item.toLowerCase().replace('à ', '').replace(' ', '-'));
+                  setIsMenuOpen(false);
+                }}
+                className="block w-full text-left text-white/70 hover:text-white transition-colors py-2"
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </nav>
   );
 }

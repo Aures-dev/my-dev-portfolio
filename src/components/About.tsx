@@ -3,7 +3,6 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { getAnimationConfig } from '../utils/performance';
 import {
-  FileJs,
   Atom
 } from 'phosphor-react';
 import { SiNextdotjs, SiTypescript  } from "react-icons/si";
