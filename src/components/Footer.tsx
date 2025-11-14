@@ -9,6 +9,8 @@ export default function Footer() {
   const footerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    if (!footerRef.current) return;
+
     gsap.fromTo(footerRef.current,
       { opacity: 0, y: 60, filter: 'blur(10px)' },
       {
@@ -26,16 +28,22 @@ export default function Footer() {
     );
 
     const particles = document.querySelectorAll('.footer-particle');
-    particles.forEach((particle, index) => {
-      gsap.to(particle, {
-        y: -15,
-        duration: 2 + index * 0.5,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power1.inOut',
-        delay: index * 0.2
+    if (particles.length > 0) {
+      particles.forEach((particle, index) => {
+        gsap.to(particle, {
+          y: -15,
+          duration: 2 + index * 0.5,
+          repeat: -1,
+          yoyo: true,
+          ease: 'power1.inOut',
+          delay: index * 0.2
+        });
       });
-    });
+    }
+
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
 
   const scrollToSection = (id: string) => {
@@ -67,6 +75,7 @@ export default function Footer() {
                 key={item}
                 onClick={() => scrollToSection(item.toLowerCase().replace('à ', '').replace(' ', '-'))}
                 className="text-white/70 hover:text-white transition-all duration-300 text-sm tracking-wide relative group"
+                aria-label={`Aller à la section ${item}`}
               >
                 {item}
                 <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-violet-500 group-hover:w-full transition-all duration-300" />

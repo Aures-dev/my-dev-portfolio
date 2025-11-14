@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { getAnimationConfig } from '../utils/performance';
 import {
   FileJs,
   Atom
@@ -18,11 +19,15 @@ export default function About() {
   const skills = [
     { icon: SiTypescript , name: 'Typescript', color: 'text-blue-600' },
     { icon: Atom, name: 'React', color: 'text-cyan-400' },
-    { icon: SiNextdotjs, name: 'Next.js', color: 'text-white-400' },
+    { icon: SiNextdotjs, name: 'Next.js', color: 'text-white' },
     { icon: FaNodeJs, name: 'Node.js', color: 'text-green-600' },
   ];
 
   useEffect(() => {
+    const config = getAnimationConfig();
+    
+    if (!sectionRef.current) return;
+    
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
@@ -32,32 +37,44 @@ export default function About() {
       }
     });
 
-    tl.fromTo(imageRef.current,
-      { opacity: 0, x: -100, filter: 'blur(10px)' },
-      { opacity: 1, x: 0, filter: 'blur(0px)', duration: 1, ease: 'power3.out' }
-    )
+    const imageAnimation = config.enableBlur 
+      ? { opacity: 0, x: -100, filter: 'blur(10px)' }
+      : { opacity: 0, x: -50 };
+    const imageAnimationTo = config.enableBlur
+      ? { opacity: 1, x: 0, filter: 'blur(0px)', duration: config.duration, ease: config.ease }
+      : { opacity: 1, x: 0, duration: config.duration, ease: config.ease };
+
+    tl.fromTo(imageRef.current, imageAnimation, imageAnimationTo)
     .fromTo(contentRef.current,
-      { opacity: 0, x: 100, filter: 'blur(10px)' },
-      { opacity: 1, x: 0, filter: 'blur(0px)', duration: 1, ease: 'power3.out' },
-      '-=0.7'
+      config.enableBlur ? { opacity: 0, x: 100, filter: 'blur(10px)' } : { opacity: 0, x: 50 },
+      config.enableBlur 
+        ? { opacity: 1, x: 0, filter: 'blur(0px)', duration: config.duration, ease: config.ease }
+        : { opacity: 1, x: 0, duration: config.duration, ease: config.ease },
+      '-=0.4'
     );
 
     const icons = document.querySelectorAll('.skill-icon');
-    gsap.fromTo(icons,
-      { opacity: 0, scale: 0, filter: 'blur(5px)' },
-      {
-        opacity: 1,
-        scale: 1,
-        filter: 'blur(0px)',
-        duration: 0.6,
-        stagger: 0.1,
-        ease: 'back.out(1.7)',
-        scrollTrigger: {
-          trigger: contentRef.current,
-          start: 'top 60%'
+    if (icons.length > 0 && contentRef.current) {
+      gsap.fromTo(icons,
+        config.enableBlur ? { opacity: 0, scale: 0, filter: 'blur(5px)' } : { opacity: 0, scale: 0.8 },
+        {
+          opacity: 1,
+          scale: 1,
+          ...(config.enableBlur && { filter: 'blur(0px)' }),
+          duration: config.duration,
+          stagger: config.stagger,
+          ease: config.ease,
+          scrollTrigger: {
+            trigger: contentRef.current,
+            start: 'top 60%'
+          }
         }
-      }
-    );
+      );
+    }
+    
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
 
   return (
@@ -80,9 +97,10 @@ export default function About() {
             }}
           >
             <img
-              src="/assets/profile.png"
+              src="/assets/profile.webp"
               alt="Aurès ASSOGBA-ZEHE"
               className="w-full h-full object-cover"
+              loading="lazy"
             />
           </div>
         </div>

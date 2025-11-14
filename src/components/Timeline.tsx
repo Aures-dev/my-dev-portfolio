@@ -39,22 +39,30 @@ export default function Timeline() {
   useEffect(() => {
     const items = gsap.utils.toArray('.timeline-item');
 
+    if (items.length === 0) return;
+
     items.forEach((item) => {
-      gsap.fromTo(item as HTMLElement,
-        { opacity: 0, x: -50 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 0.8,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: item as HTMLElement,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse'
+      if (item) {
+        gsap.fromTo(item as HTMLElement,
+          { opacity: 0, x: -50 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: item as HTMLElement,
+              start: 'top 80%',
+              toggleActions: 'play none none reverse'
+            }
           }
-        }
-      );
+        );
+      }
     });
+
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
 
   return (

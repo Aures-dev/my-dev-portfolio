@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { getDevicePerformance } from '../utils/performance';
 
 interface PreloaderProps {
   onComplete: () => void;
@@ -13,9 +14,10 @@ export default function Preloader({ onComplete }: PreloaderProps) {
   useEffect(() => {
     const tl = gsap.timeline();
 
+    // Durée réduite pour améliorer la perception de vitesse
     tl.to(progressRef.current, {
       strokeDashoffset: 0,
-      duration: 2.5,
+      duration: 1.5, // Réduit de 2.5s à 1.5s
       ease: 'power2.inOut',
       onUpdate: function() {
         const progress = Math.round((1 - this.progress()) * 100);
@@ -27,7 +29,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
     .to(preloaderRef.current, {
       opacity: 0,
       scale: 0.9,
-      duration: 0.8,
+      duration: 0.5, // Réduit de 0.8s à 0.5s
       ease: 'power2.inOut',
       onComplete: () => {
         onComplete();

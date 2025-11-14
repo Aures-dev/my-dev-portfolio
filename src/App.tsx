@@ -12,8 +12,14 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
-  }, []);
+    if (isLoading) {
+      document.body.style.overflow = 'hidden';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isLoading]);
 
   const handlePreloaderComplete = () => {
     setIsLoading(false);

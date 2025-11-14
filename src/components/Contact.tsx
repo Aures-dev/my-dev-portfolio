@@ -39,17 +39,40 @@ export default function Contact() {
     );
   }, []);
 
+  const sanitizeInput = (input: string): string => {
+    return input.replace(/[<>"'&]/g, (match) => {
+      const entities: { [key: string]: string } = {
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#x27;',
+        '&': '&amp;'
+      };
+      return entities[match] || match;
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     const form = e.currentTarget;
     const formData = new FormData(form);
+    
+    // Sanitize form data
+    const sanitizedData = new FormData();
+    for (const [key, value] of formData.entries()) {
+      if (typeof value === 'string') {
+        sanitizedData.append(key, sanitizeInput(value));
+      } else {
+        sanitizedData.append(key, value);
+      }
+    }
 
     try {
       const response = await fetch('https://formspree.io/f/xrbprgdb', {
         method: 'POST',
-        body: formData,
+        body: sanitizedData,
         headers: {
           'Accept': 'application/json'
         }
@@ -65,6 +88,7 @@ export default function Contact() {
         throw new Error('Erreur lors de l\'envoi');
       }
     } catch (error) {
+      console.error('Erreur envoi formulaire:', error);
       toast.error('Erreur lors de l\'envoi', {
         description: 'Veuillez réessayer plus tard.',
         duration: 5000
@@ -210,6 +234,7 @@ export default function Contact() {
                   type="text"
                   name="name"
                   required
+                  maxLength={100}
                   placeholder="Votre nom"
                   className="w-full px-6 py-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 focus:border-violet-500/50 text-white placeholder:text-white/40 outline-none transition-all duration-300"
                   style={{ boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)' }}
@@ -232,6 +257,7 @@ export default function Contact() {
                   type="text"
                   name="subject"
                   required
+                  maxLength={200}
                   placeholder="Sujet"
                   className="w-full px-6 py-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 focus:border-violet-500/50 text-white placeholder:text-white/40 outline-none transition-all duration-300"
                   style={{ boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)' }}
@@ -242,6 +268,7 @@ export default function Contact() {
                 <textarea
                   name="message"
                   required
+                  maxLength={1000}
                   rows={6}
                   placeholder="Votre message"
                   className="w-full px-6 py-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 focus:border-violet-500/50 text-white placeholder:text-white/40 outline-none resize-none transition-all duration-300"

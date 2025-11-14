@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ArrowRight } from 'phosphor-react';
-import Spline from '@splinetool/react-spline';
+import LazySpline from './LazySpline';
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -50,7 +50,7 @@ export default function Hero() {
   return (
     <section id="accueil" ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
       <div className="absolute inset-0 z-0">
-         <Spline scene="https://prod.spline.design/W-KNaS1oMJ6yzooH/scene.splinecode" className="w-full h-full opacity-60" />
+         <LazySpline scene="https://prod.spline.design/W-KNaS1oMJ6yzooH/scene.splinecode" className="w-full h-full opacity-60" />
       </div>
 
       <div className="glow-orb absolute top-20 left-20 w-64 h-64 bg-violet-500/20 rounded-full blur-3xl" />
